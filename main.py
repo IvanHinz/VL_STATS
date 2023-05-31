@@ -9,7 +9,10 @@ requested_league = []
 
 @app.route('/', methods=['GET'])
 def index():
-    return get_soccer_data.get_table(requested_league[-1])  # returning key-value pair in json format
+    if requested_league[-1][-1] == "_":
+        return get_soccer_data.get_players(requested_league[-1][:len(requested_league[-1]) - 1])
+    else:
+        return get_soccer_data.get_table(requested_league[-1])  # returning key-value pair in json format
 
 
 @app.route('/', methods=['POST'])
@@ -18,7 +21,6 @@ def posting():
     request_data = json.loads(request_data.decode('utf-8'))
 
     requested_league.append(request_data['name'])
-    print(request_data['name'])
 
 
 if __name__ == "__main__":
