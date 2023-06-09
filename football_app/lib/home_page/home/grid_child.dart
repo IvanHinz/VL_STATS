@@ -16,7 +16,7 @@ class GridChild extends StatelessWidget {
       children: [
         InkWell(
           child: Container(
-            height: MediaQuery.of(context).size.height * 0.20,
+            height: MediaQuery.of(context).size.height * 0.2,
             width: MediaQuery.of(context).size.width / 2,
             decoration: BoxDecoration(
                 image: DecorationImage(
@@ -58,8 +58,8 @@ Dialog getDialog(BuildContext context, String description) {
             bottomLeft: Radius.circular(32.0),
             bottomRight: Radius.circular(32.0)),
       ),
-      height: 180.0,
-      width: 180.0,
+      height: 240.0,
+      width: 240.0,
       child: Column(
         children: <Widget>[
           const SizedBox(height: 30),
@@ -79,7 +79,7 @@ Dialog getDialog(BuildContext context, String description) {
               ),
             ),
           ),
-          const SizedBox(height: 40),
+          const SizedBox(height: 30),
           SizedBox(
             height: 40.0,
             child: ElevatedButton(
@@ -88,6 +88,24 @@ Dialog getDialog(BuildContext context, String description) {
                 },
                 child: const Text(
                   'Players',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )),
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          SizedBox(
+            height: 40.0,
+            child: ElevatedButton(
+                onPressed: () {
+                  goToPrediction(context, description);
+                },
+                child: const Text(
+                  'Make a prediction, buddy!',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 16.0,

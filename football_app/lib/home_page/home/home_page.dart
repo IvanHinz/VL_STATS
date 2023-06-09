@@ -27,7 +27,6 @@ class HomePageState extends State<HomePage> {
             ),
           ),
         ),
-        drawer: const Drawer(),
         body: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),
