@@ -42,10 +42,11 @@ class LeaguePlayers extends StatelessWidget {
                                     child: SingleChildScrollView(
                                         scrollDirection: Axis.horizontal,
                                         child: DataTable(
-                                          dividerThickness: 0.5,
+                                          dividerThickness: 0.1,
                                           border: TableBorder.all(
-                                            width: 5.0,
-                                            color: MainColors.cyan,
+                                            width: 2.0,
+                                            style: BorderStyle.solid,
+                                            color: Colors.white,
                                           ),
                                           horizontalMargin: 5,
                                           columnSpacing: 10,
