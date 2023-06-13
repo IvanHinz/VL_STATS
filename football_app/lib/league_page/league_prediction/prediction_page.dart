@@ -36,6 +36,10 @@ class PredictionPageState extends State<PredictionPage> {
       teams = laLigaTeams;
     } else if (leagueName == "Bundesliga") {
       teams = bundesligaTeams;
+    } else if (leagueName == "Serie A") {
+      teams = serieATeams;
+    } else if (leagueName == "Ligue 1") {
+      teams = ligue1Teams;
     } else {
       teams = rplTeams;
     }
@@ -142,8 +146,10 @@ class PredictionPageState extends State<PredictionPage> {
                                       "There will be draw between $firstTeam and $secondTeam";
                                 } else if (answer == "2") {
                                   prediction_status = "$firstTeam will win";
-                                } else {
+                                } else if (answer == "0") {
                                   prediction_status = "$firstTeam will loose";
+                                } else {
+                                  prediction_status = answer;
                                 }
                               });
                             },
@@ -158,7 +164,18 @@ class PredictionPageState extends State<PredictionPage> {
                         const SizedBox(
                           height: 50,
                         ),
-                        Text(prediction_status),
+                        Container(
+                            padding: const EdgeInsets.only(
+                                top: 25, left: 10, right: 10),
+                            color: Theme.of(context).colorScheme.background,
+                            child: Text(prediction_status,
+                                textDirection: TextDirection.ltr,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    backgroundColor: Colors.white)))
                       ],
                     )))));
   }

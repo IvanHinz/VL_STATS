@@ -14,7 +14,7 @@ class HomePageState extends State<HomePage> {
     return Scaffold(
         extendBodyBehindAppBar: false,
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(75.0),
+          preferredSize: const Size.fromHeight(50),
           child: AppBar(
             toolbarHeight: kToolbarHeight + 50,
             centerTitle: true,
@@ -80,7 +80,13 @@ class HomePageState extends State<HomePage> {
                       ),
                       GridChild(
                           imagePath: 'assets/Russian_Premier_League.png',
-                          description: 'Russian Premier League')
+                          description: 'RPL'),
+                      GridChild(
+                          imagePath: 'assets/Serie A.png',
+                          description: 'Serie A'),
+                      GridChild(
+                          imagePath: 'assets/Ligue 1.png',
+                          description: 'Ligue 1')
                     ],
                   ),
                 ),

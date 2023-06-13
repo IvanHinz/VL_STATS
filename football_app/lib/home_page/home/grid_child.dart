@@ -17,7 +17,7 @@ class GridChild extends StatelessWidget {
         InkWell(
           child: Container(
             height: MediaQuery.of(context).size.height * 0.2,
-            width: MediaQuery.of(context).size.width / 2,
+            width: MediaQuery.of(context).size.width / 2.5,
             decoration: BoxDecoration(
                 image: DecorationImage(
                     fit: BoxFit.cover, image: AssetImage(imagePath)),
@@ -47,8 +47,6 @@ class GridChild extends StatelessWidget {
 
 Dialog getDialog(BuildContext context, String description) {
   return Dialog(
-    // shape: const RoundedRectangleBorder(
-    //     borderRadius: BorderRadius.all(Radius.circular(32.0))),
     child: Container(
       decoration: BoxDecoration(
         color: MainColors.lightBlue,
@@ -105,7 +103,7 @@ Dialog getDialog(BuildContext context, String description) {
                   goToPrediction(context, description);
                 },
                 child: const Text(
-                  'Make a prediction, buddy!',
+                  'Predict',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 16.0,

@@ -1,16 +1,7 @@
-# football_app
+# VL Stats
 
-A new Flutter project.
+Vl stats - mobile app for analyzing football statistics 
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Get league table with advanced parameters
+- Get best league players and their statistics in the current season
+- Make a prediction on 2 teams from one league - win, draw or loose

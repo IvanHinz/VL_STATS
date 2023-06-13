@@ -23,7 +23,7 @@ void goToPrediction(BuildContext context, String description) {
 
 Future<String> postPrediction(BuildContext context, String league,
     String firstTeam, String secondTeam) async {
-  await http.post(Uri.parse(url),
+  final postprediction = await http.post(Uri.parse(url),
       body: json.encode({'name': "${league}_${firstTeam}_${secondTeam}__"}));
 
   final response = await http.get(Uri.parse("http://10.0.2.2:5000/"));
