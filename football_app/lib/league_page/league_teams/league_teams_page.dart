@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:football_app/features/colors_view.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:developer' as developer;
+import '../../requests/request.dart';
 import 'abstract_team.dart';
 
 class LeagueTable extends StatelessWidget {
@@ -15,8 +15,9 @@ class LeagueTable extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text("$leagueName Table",
-              style: const TextStyle(fontWeight: FontWeight.bold)),
+          title: Text(
+            "$leagueName Table",
+          ),
         ),
         body: FutureBuilder<List<Team>>(
           builder: (ctx, snapshot) {
@@ -44,7 +45,7 @@ class LeagueTable extends StatelessWidget {
                                     child: DataTable(
                                       dividerThickness: 0.1,
                                       border: TableBorder.all(
-                                        width: 2.0,
+                                        width: 1.0,
                                         style: BorderStyle.solid,
                                         color: Colors.white,
                                       ),
@@ -57,8 +58,9 @@ class LeagueTable extends StatelessWidget {
                                             (country) => DataRow(
                                               cells: [
                                                 DataCell(
-                                                  onTap: () => developer
-                                                      .log("clicked on team"),
+                                                  onTap: () => postTeamPlayers(
+                                                      context,
+                                                      country.teamName),
                                                   Center(
                                                     child: Text(
                                                       textAlign:

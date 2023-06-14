@@ -1,24 +1,23 @@
 import 'dart:convert';
 import 'dart:developer' as developer;
 import 'package:flutter/material.dart';
-import 'package:football_app/league_page/league_players/abstract_player.dart';
+import 'package:football_app/league_page/teams_squad/abstract_squad.dart';
 import 'package:http/http.dart' as http;
 
 import '../../features/colors/colors.dart';
 
-class LeaguePlayers extends StatelessWidget {
-  const LeaguePlayers({super.key});
+class TeamPlayers extends StatelessWidget {
+  const TeamPlayers({super.key});
 
   @override
   Widget build(BuildContext context) {
-    String leagueName = (ModalRoute.of(context)?.settings.arguments) as String;
+    String clubName = (ModalRoute.of(context)?.settings.arguments) as String;
 
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text(
-            "$leagueName Players",
-          ),
+          title: Text("$clubName Players",
+              style: const TextStyle(fontWeight: FontWeight.bold)),
         ),
         body: FutureBuilder<List<Player>>(
             builder: (ctx, snapshot) {
@@ -59,6 +58,20 @@ class LeaguePlayers extends StatelessWidget {
                                                           textAlign:
                                                               TextAlign.center,
                                                           country.playerName
+                                                              .toString(),
+                                                          style: const TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    DataCell(
+                                                      Center(
+                                                        child: Text(
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          country.position
                                                               .toString(),
                                                           style: const TextStyle(
                                                               fontWeight:
@@ -114,7 +127,8 @@ class LeaguePlayers extends StatelessWidget {
                                                         child: Text(
                                                           textAlign:
                                                               TextAlign.center,
-                                                          country.xG.toString(),
+                                                          country.assists
+                                                              .toString(),
                                                           style: const TextStyle(
                                                               fontWeight:
                                                                   FontWeight
@@ -127,8 +141,35 @@ class LeaguePlayers extends StatelessWidget {
                                                         child: Text(
                                                           textAlign:
                                                               TextAlign.center,
-                                                          country.assists
+                                                          country.shots
                                                               .toString(),
+                                                          style: const TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    DataCell(
+                                                      Center(
+                                                        child: Text(
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          country.key_passes
+                                                              .toString(),
+                                                          style: const TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    DataCell(
+                                                      Center(
+                                                        child: Text(
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          country.xG.toString(),
                                                           style: const TextStyle(
                                                               fontWeight:
                                                                   FontWeight
@@ -154,7 +195,7 @@ class LeaguePlayers extends StatelessWidget {
                                                         child: Text(
                                                           textAlign:
                                                               TextAlign.center,
-                                                          country.yellowCards
+                                                          country.yellow_cards
                                                               .toString(),
                                                           style: const TextStyle(
                                                               fontWeight:
@@ -168,7 +209,7 @@ class LeaguePlayers extends StatelessWidget {
                                                         child: Text(
                                                           textAlign:
                                                               TextAlign.center,
-                                                          country.redCards
+                                                          country.red_cards
                                                               .toString(),
                                                           style: const TextStyle(
                                                               fontWeight:
@@ -202,6 +243,29 @@ class LeaguePlayers extends StatelessWidget {
                                                 ),
                                               ),
                                               numeric: false,
+                                            ),
+                                            DataColumn(
+                                              label: Expanded(
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      'Position',
+                                                      style: TextStyle(
+                                                        color: Colors
+                                                            .orange.shade900,
+                                                        fontSize: 16.0,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                              numeric: true,
                                             ),
                                             DataColumn(
                                               label: Expanded(
@@ -281,7 +345,7 @@ class LeaguePlayers extends StatelessWidget {
                                                     Text(
                                                       textAlign:
                                                           TextAlign.center,
-                                                      'xG',
+                                                      'Assists',
                                                       style: TextStyle(
                                                         color: Colors
                                                             .orange.shade900,
@@ -304,7 +368,53 @@ class LeaguePlayers extends StatelessWidget {
                                                     Text(
                                                       textAlign:
                                                           TextAlign.center,
-                                                      'Assists',
+                                                      'Shots',
+                                                      style: TextStyle(
+                                                        color: Colors
+                                                            .orange.shade900,
+                                                        fontSize: 16.0,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                              numeric: true,
+                                            ),
+                                            DataColumn(
+                                              label: Expanded(
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      'Key Passes',
+                                                      style: TextStyle(
+                                                        color: Colors
+                                                            .orange.shade900,
+                                                        fontSize: 16.0,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                              numeric: true,
+                                            ),
+                                            DataColumn(
+                                              label: Expanded(
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      'xG',
                                                       style: TextStyle(
                                                         color: Colors
                                                             .orange.shade900,
@@ -396,13 +506,13 @@ class LeaguePlayers extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             },
-            future: fetchPlayer()),
+            future: fetchSquad()),
       ),
     );
   }
 }
 
-Future<List<Player>> fetchPlayer() async {
+Future<List<Player>> fetchSquad() async {
   final response = await http.get(Uri.parse("http://10.0.2.2:5000/"));
 
   if (response.statusCode == 200) {

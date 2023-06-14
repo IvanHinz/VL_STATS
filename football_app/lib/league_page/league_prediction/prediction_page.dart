@@ -3,6 +3,12 @@ import 'package:football_app/requests/request.dart';
 import '../../features/colors_view.dart';
 import 'dart:developer' as developer;
 import 'league_clubs.dart';
+import 'dart:math';
+
+double roundDouble(double value, int places) {
+  num mod = pow(10.0, places);
+  return ((value * mod).round().toDouble() / mod);
+}
 
 class PredictionPage extends StatefulWidget {
   const PredictionPage({super.key});
@@ -21,7 +27,7 @@ class PredictionPageState extends State<PredictionPage> {
   @override
   void initState() {
     super.initState();
-    prediction_status = "NO prediction available";
+    prediction_status = "No prediction available";
   }
 
   String? firstteamId;
@@ -46,8 +52,9 @@ class PredictionPageState extends State<PredictionPage> {
     return Scaffold(
         // backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text("$leagueName prediction",
-              style: const TextStyle(fontWeight: FontWeight.bold)),
+          title: Text(
+            "$leagueName prediction",
+          ),
         ),
         // ignore: sized_box_for_whitespace
         body: Container(
@@ -64,7 +71,7 @@ class PredictionPageState extends State<PredictionPage> {
                           height: 50,
                         ),
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 10.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15.0),
                             border: Border.all(
@@ -74,11 +81,11 @@ class PredictionPageState extends State<PredictionPage> {
                           ),
                           child: DropdownButton<String>(
                             isDense: true,
-                            dropdownColor: MainColors.cyan,
+                            dropdownColor: MainColors.lightBlue,
                             value: firstTeam,
                             onChanged: (String? value) {
                               setState(() {
-                                prediction_status = "NO prediction available";
+                                prediction_status = "No prediction available";
                                 if (secondTeam == value &&
                                     secondTeam != teams[0]) {
                                   firstTeam = teams[0];
@@ -98,7 +105,7 @@ class PredictionPageState extends State<PredictionPage> {
                         ),
                         const SizedBox(height: 50),
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 10.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15.0),
                             border: Border.all(
@@ -108,11 +115,11 @@ class PredictionPageState extends State<PredictionPage> {
                           ),
                           child: DropdownButton<String>(
                             isDense: true,
-                            dropdownColor: MainColors.cyan,
+                            dropdownColor: MainColors.lightBlue,
                             value: secondTeam,
                             onChanged: (String? value) {
                               setState(() {
-                                prediction_status = "NO prediction available";
+                                prediction_status = "No prediction available";
                                 if (firstTeam == value &&
                                     firstTeam != teams[0]) {
                                   secondTeam = teams[0];
@@ -133,23 +140,37 @@ class PredictionPageState extends State<PredictionPage> {
                         const SizedBox(height: 50),
                         ElevatedButton(
                             onPressed: () async {
-                              String answer;
+                              String result;
+                              double answer;
                               developer.log(firstTeam as String);
                               developer.log(secondTeam as String);
-                              answer = await postPrediction(context, leagueName,
+                              result = await postPrediction(context, leagueName,
                                   firstTeam as String, secondTeam as String);
-                              developer.log(answer);
+                              developer.log(result);
+                              answer = double.parse(result);
 
                               setState(() {
-                                if (answer == "1") {
+                                if (answer >= 2.0) {
                                   prediction_status =
-                                      "There will be draw between $firstTeam and $secondTeam";
-                                } else if (answer == "2") {
-                                  prediction_status = "$firstTeam will win";
-                                } else if (answer == "0") {
-                                  prediction_status = "$firstTeam will loose";
+                                      "$firstTeam will definitely win $secondTeam";
+                                } else if (answer >= 1.5 && answer < 2.0) {
+                                  final String prob =
+                                      (roundDouble(answer - 1.5, 2) * 2.0)
+                                          .toString();
+                                  prediction_status =
+                                      "$firstTeam will win $secondTeam with $prob probability";
+                                } else if (answer < 1.5 && answer >= 0.5) {
+                                  prediction_status =
+                                      "Draw between $firstTeam and $secondTeam";
+                                } else if (answer > 0.0 && answer < 0.5) {
+                                  final String prob =
+                                      (roundDouble(0.5 - answer, 2) * 2.0)
+                                          .toString();
+                                  prediction_status =
+                                      "$firstTeam will lose $secondTeam with $prob probability";
                                 } else {
-                                  prediction_status = answer;
+                                  prediction_status =
+                                      "$firstTeam will definitely lose $secondTeam";
                                 }
                               });
                             },
@@ -158,7 +179,6 @@ class PredictionPageState extends State<PredictionPage> {
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 15.0,
-                                fontWeight: FontWeight.bold,
                               ),
                             )),
                         const SizedBox(

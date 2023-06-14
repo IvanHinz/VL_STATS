@@ -36,3 +36,11 @@ Future<String> postPrediction(BuildContext context, String league,
     throw Exception('Failed to load Data');
   }
 }
+
+Future<void> postTeamPlayers(BuildContext context, String description) async {
+  Navigator.of(context).pushNamed('/squad_page', arguments: description);
+
+  // ignore: unused_local_variable
+  final response = await http.post(Uri.parse(url),
+      body: json.encode({'name': "${description}#"}));
+}
